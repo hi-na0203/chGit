@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>番組確認</title>
+    <style>
+        body {
+            font-family: "Zen Kurenaido", sans-serif;
+            background-color: #e0f7fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .zen-kurenaido-regular {
+            font-family: "Zen Kurenaido", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            width: 60%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        input[type="time"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #F987C5;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            align-self: center;
+        }
+
+        button:hover {
+            background-color: #FE5BAC;
+        }
+
+        .program-list {
+            width: 70%;
+            max-width: 500px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .program-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .program-item:last-child {
+            border-bottom: none;
+        }
+
+        table {
+            width: 80%;
+            max-width: 1000px;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            align-items: center;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #0288d1;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #b3e5fc;
+        }
+
+        tr:hover {
+            background-color: #81d4fa;
+        }
+
+        @media (max-width: 600px) {
+
+            form,
+            .program-list {
+                width: 90%;
+            }
+
+            label,
+            input[type="time"],
+            button {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <form method="POST" action="/">
+        <label for="chArea">放送局:</label>
+        <input type="text" id="chArea" name="chArea">
+        <label for="date">日付:</label>
+        <input type="date" id="date" name="date">
+        <label for="start_time">開始時間:</label>
+        <input type="time" id="start_time" name="start_time">
+        <label for="end_time">終了時間:</label>
+        <input type="time" id="end_time" name="end_time">
+        <button type="submit">フィルター</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 125px;">放送局</th>
+                <th>日付</th>
+                <th>開始時間</th>
+                <th>終了時間</th>
+                <th style="width: 1200px;">タイトル</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in filteredData %}
+            <tr>
+                <td>{{ item.chArea }}</td>
+                <td>{{ item.date }}</td>
+                <td>{{ item.startTime }}</td>
+                <td>{{ item.endTime }}</td>
+                <td>『{{ item.title }}』</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
